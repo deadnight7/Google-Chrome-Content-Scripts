@@ -1,0 +1,69 @@
+<dom-module id="index-settings">
+  <template>
+    <style>
+    .Checkboxes{
+      padding: 25px 20px 25px;
+      font-size: 16px;
+    }
+    .Checkboxes > .E{
+      position: relative;
+    }
+    .Checkboxes > .E + .E{
+      border-top: 10px solid transparent;
+    }
+    .Checkboxes > .E > .In{
+      display:inline-block;vertical-align:top;
+      padding-right: 25px;
+    }
+    .Checkboxes > .E > .In:after{
+      content:' ';clear:both;display:block;width:0;height:0;overflow:hidden;font-size:0;
+    }
+    .Checkboxes > .E > .In > checkbox-switch{
+      float: left;
+    }
+    .Checkboxes > .E > .In > label{
+      display: block;
+      margin-left: 55px;
+    }
+
+    .Information{
+      background: url('/images/information_icon.png') 0 0 no-repeat;
+      width: 16px;
+      overflow:hidden;font-size:0;text-indent:-9999px;height:0;padding-top:16px;
+      cursor: pointer;
+      position: absolute;
+      top: 3px;
+      right: 0;
+    }
+    .Information:hover{
+      background-position-y: -50px;
+    }
+
+    .Error{
+      clear: both;
+      padding: 2px 0 0 55px;
+      color: #c00;
+      font-size: 12px;
+    }
+    </style>
+
+    <div class="Checkboxes">
+      <div class="E">
+        <div class="Information" on-tap="showInformationPopup"></div>
+        <div class="In">
+          <checkbox-switch checked="[[webrtcBlocked]]" on-tap="webrtcChange">
+          </checkbox-switch>
+          <label on-tap="webrtcChange">
+            [[translations.useBrowsecForWebrtcConnections]]
+          </label>
+          <template is="dom-if" if="[[webrtcDisabled]]">
+            <div class="Error">
+              [[translations.webrtcSettingsControlledByAnotherExtension]]
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+  <script src="/popup/index/settings.js" type="text/javascript"></script>
+</dom-module>

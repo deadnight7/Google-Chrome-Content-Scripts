@@ -1,0 +1,111 @@
+<dom-module id="index-locations-element">
+  <template>
+    <style>
+    :host{
+      display: block;
+    	padding: 0 7px 0 10px;
+    	cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+    :host.current{
+    	cursor: default;
+      background: #f0f5f0;
+    }
+    :host.highlight{
+      background: #f7f8fc;
+    }
+    :host.current.highlight{
+      background: #f0f5f0;
+    }
+    :host > .In{
+    	display: table;
+    	width: 100%;
+      height: 40px;
+    }
+    :host > .In > .E{
+    	display: table-cell;
+    	vertical-align: middle;
+    }
+    :host > .In > .E:first-child{
+    	width: 1px;
+    	padding-right: 10px;
+    }
+    :host > .In > .E.mark{
+      width: 1px;
+    	padding-left: 10px;
+    }
+    :host > .In > .E.favorite{
+    	width: 1px;
+    	padding-left: 15px;
+    }
+
+    .Flag{
+    	display: block;
+    }
+    .Country{
+    	font-size: 13px;
+      line-height: 1.2;
+    	color: #333;
+    }
+
+    .Favorite{
+      background: url('/images/stars.png') 0 -100px no-repeat;
+      width: 13px;
+      overflow:hidden;font-size:0;text-indent:-9999px;height:0;
+      padding-top: 12px;
+      cursor: pointer;
+      border: 3px solid transparent;
+    }
+    .Favorite:hover{
+      background-position-y: -50px;
+    }
+    .Favorite.favorited,
+    .Favorite.favorited:hover{
+      background-position-y: 0px;
+    }
+
+    .Mark{
+      display:inline-block;
+      vertical-align: middle;
+      width: 23px;
+      overflow:hidden;font-size:0;text-indent:-9999px;height:0;
+      padding-top: 12px;
+      background: url('/images/ratings.png') 0 0 no-repeat;
+    }
+    .Mark.mark2{
+      background-position-y: -50px;
+    }
+    .Mark.mark3{
+      background-position-y: -100px;
+    }
+    .Mark.mark4{
+      background-position-y: -150px;
+    }
+    .Mark.mark5{
+      background-position-y: -200px;
+    }
+    </style>
+
+    <div class="In" on-tap="fullElementClick">
+      <div class="E">
+        <img class="Flag" src$="[[flagUrl(data.code)]]" width="30" height="20">
+      </div>
+      <div class="E">
+        <div class="Country">[[data.name]]</div>
+      </div>
+      <template is="dom-if" if="[[data.delay]]">
+        <div class="E mark"><!--
+       --><div class$="Mark mark[[data.mark]]">[[data.mark]]</div><!--
+      --></div>
+      </template>
+      <template is="dom-if" if="[[showFavorites(data)]]">
+        <div class="E favorite">
+          <div class$="Favorite [[favoritesCssClass(data.favorited)]]" on-tap="favoritesClick"></div>
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <script src="/popup/index/locations/element.js" type="text/javascript"></script>
+</dom-module>
